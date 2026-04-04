@@ -1,22 +1,4 @@
-# Cases
-
-Este diretorio concentra casos de estudo guiados por problema, nao por solucao pronta.
-
-O objetivo aqui nao e te entregar modelagem, tabelas, colunas ou implementacoes fechadas. O objetivo e te colocar diante de um problema realista e te obrigar a tomar decisoes tecnicas com criterio.
-
-Como usar este material:
-
-- leia o enunciado do case
-- identifique o problema de negocio
-- proponha sua propria modelagem
-- decida onde cada regra deve ser implementada
-- so depois compare sua solucao com os criterios de avaliacao
-
-Se eu estiver atuando como tutor, este e o formato correto: desafio, restricoes, perguntas e revisao critica posterior.
-
----
-
-# Case 01: Central de Atendimento Financeiro
+# Case: Central de Atendimento Financeiro
 
 ## Proposito do case
 
