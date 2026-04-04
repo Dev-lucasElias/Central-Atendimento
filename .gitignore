@@ -1,0 +1,33 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Node
+node_modules/
+dist/
+build/
+
+# .NET
+bin/
+obj/
+TestResults/
+
+# Local settings / secrets
+.env
+.env.*
+appsettings.Development.json
+secrets.json
+
+# Packages / archives
+*.nupkg
+*.zip
+
+# Generated documentation and temporary exports
+*.tmp
+*.bak
