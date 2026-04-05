@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm \"/c/Users/lucas.elias.de.abreu/Desktop/dynamics-study/cases/canalDeEntrada.md\")",
+      "Bash(rm \"/c/Users/lucas.elias.de.abreu/Desktop/dynamics-study/cases/README.md\")"
+    ]
+  }
+}
