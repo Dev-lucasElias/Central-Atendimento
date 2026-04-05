@@ -1,0 +1,76 @@
+@startuml
+title Ciclo de Vida do Chamado — Fluxo Principal
+
+actor Atendente as at
+actor Cliente as cl
+participant "Sistema Legado" as legado
+participant "Sistema" as sys
+participant "Fila N1" as filaN1
+participant "Fila N2" as filaN2
+participant "Fila N3" as filaN3
+
+alt abertura manual
+    at -> sys : abre chamado (tipo, subcategoria, descrição)
+else abertura proativa
+    legado -> sys : notifica falha ou risco (webhook / integração a definir)
+    sys -> at : notifica atendente para avaliação
+    alt atendente decide abrir
+        at -> sys : confirma abertura do chamado
+    else atendente decide não abrir
+        at -> sys : descarta notificação
+    end
+end
+sys -> sys : valida campos obrigatórios
+sys -> sys : busca artigo por categoria/subcategoria
+sys -> sys : vincula artigo ao chamado
+sys -> sys : calcula data limite (SLA)
+sys -> filaN1 : atribui automaticamente
+filaN1 -> at : notifica via e-mail/Teams
+
+at -> sys : abre chamado e atua
+at -> sys : solicita escalonamento para nível acima
+
+alt escalonamento N1 -> N2
+    sys -> sys : notifica coordenador N2
+    sys -> at : aguarda aprovação
+    sys -> filaN2 : escala chamado para N2
+    filaN2 -> at : notifica atendente N2
+else reprovado pelo coordenador N2
+    sys -> at : notifica reprovação
+end
+
+alt escalonamento N2 -> N3
+    sys -> sys : notifica coordenador N3
+    sys -> at : aguarda aprovação
+    sys -> filaN3 : escala chamado para N3
+    filaN3 -> at : notifica atendente N3
+else reprovado pelo coordenador N3
+    sys -> at : notifica reprovação
+end
+
+alt rebaixamento N3 -> N2
+    sys -> filaN2 : transfere chamado para N2
+    sys -> sys : notifica coordenador do N2
+    filaN2 -> at : notifica atendente N2
+end
+
+alt rebaixamento N2 -> N1
+    sys -> filaN1 : transfere chamado para N1
+    sys -> sys : notifica coordenador do N1
+    filaN1 -> at : notifica atendente N1
+end
+
+at -> sys : resolve chamado (preenche descrição da resolução)
+sys -> sys : registra log de auditoria
+sys -> sys : altera status para resolvido
+
+alt encerramento ou cancelamento
+    sys -> cl : envia e-mail com descritivo da resolução/cancelamento
+    sys -> cl : envia pesquisa de satisfação
+end
+
+cl -> sys : responde pesquisa de satisfação
+sys -> sys : registra nota e texto no chamado
+sys -> at : notifica resposta da pesquisa
+
+@enduml
