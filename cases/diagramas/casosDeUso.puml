@@ -1,0 +1,52 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor #444
+}
+skinparam rectangle {
+    BorderColor #444
+}
+
+actor Atendente as at
+actor Coordenador as co
+actor Sistema as si
+
+rectangle "Central de Atendimento" {
+    usecase "Abrir Chamado" as UC1
+    usecase "Consultar Chamado" as UC2
+    usecase "Encerrar Chamado" as UC3
+    usecase "Redistribuir Chamado" as UC4
+    usecase "Escalar Chamado" as UC5
+    usecase "Editar Chamado" as UC6
+    usecase "Visualizar Fila" as UC7
+    usecase "Visualizar Dashboard" as UC8
+    usecase "Gerar Relatório" as UC9
+    usecase "Rotear Automaticamente" as UC10
+    usecase "Alertar SLA" as UC11
+    usecase "Notificar Caso Crítico" as UC12
+}
+
+actor Carla as ca
+actor Ricardo as ri
+
+at --> UC1
+at --> UC2
+at --> UC3
+
+co --> UC7
+co --> UC4
+
+si --> UC1
+si --> UC10
+si --> UC11
+si --> UC12
+
+UC5 <-- ca
+UC6 <-- ca
+UC8 <-- ca
+
+UC8 <-- ri
+UC9 <-- ri
+@enduml
