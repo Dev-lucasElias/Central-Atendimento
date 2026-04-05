@@ -1,0 +1,68 @@
+@startuml
+entity Chamado {
+    * id
+    --
+    titulo
+    tipo
+    subcategoria
+    status
+}
+
+entity Cliente {
+    * id
+    --
+    nome
+    cpf
+    email
+    telefone
+}
+
+entity SystemUser {
+    * id
+    --
+    nome
+    email
+    nivel
+}
+
+entity LogAuditoria {
+    * id
+    --
+    campoAlterado
+    valorAnterior
+    valorNovo
+    dataHora
+}
+
+entity ConfiguracaoSLA {
+    * id
+    --
+    tipoChamado
+    prazoEmDiasUteis
+}
+
+entity Artigo {
+    * id
+    --
+    titulo
+    conteudo
+    categoria
+    subcategoria
+}
+
+entity PesquisaSatisfacao {
+    * id
+    --
+    nota
+    textoAvaliativo
+    dataResposta
+}
+
+Chamado }o--|| Cliente : "pertence a"
+Chamado }o--|| SystemUser : "atribuído a"
+LogAuditoria }o--|| Chamado : "registra alteração de"
+LogAuditoria }o--|| SystemUser : "alterado por"
+ConfiguracaoSLA ||--o{ Chamado : "define prazo de"
+Artigo }o--|| Chamado : "vinculado a"
+PesquisaSatisfacao ||--|| Chamado : "gerada por"
+@enduml
